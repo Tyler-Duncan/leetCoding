@@ -49,21 +49,15 @@ var missingNumber = function (nums) {
     return a+b
   });
 
-  //iterate through the input array
+  //create a while loop since it does not use more space
+  //the way a for loop does by needing to define the index
     //subtract the current index from the return variable (the sum at the start and what will be the remaining amount per iteration)
-  for (let index = 0; index <= nums.length; index++) {
-    remainingValue = remainingValue - index;
+
+  while (nums.length > 0) {
+    remainingValue = remainingValue - nums.length;
+    nums.pop()
   }
 
-
-  //return our return variable, the left over which will equal our missing value
+  //Perform the Math.abs() method to get the positive form of the return variable, which is the left over value equal our input array's missing value
   return Math.abs(remainingValue);
 };
-
-
-
-
-
-missingNumber([9,6,4,2,3,5,7,0,1]);
-missingNumber([0]);
-missingNumber([3,0,1]);
