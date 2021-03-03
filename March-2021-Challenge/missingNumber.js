@@ -38,13 +38,32 @@ Explanation: n = 1 since there is 1 number, so all numbers are in the range [0,1
 
 /* ---Solution/Work Start--- */
 
-//Establish return variable
-  //set it to the sum of the input array using the reduce method of Arrays {O(n) calculation at best}
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+  //Establish return variable
+    //set it to the sum of the input array using the reduce method of Arrays {O(n) calculation at best}
+  let remainingValue = nums.reduce((a, b) => {
+    return a+b
+  });
 
-//iterate through the input array
-  //subtract the current index from the return variable (the sum at the start and what will be the remaining amount per iteration)
+  //iterate through the input array
+    //subtract the current index from the return variable (the sum at the start and what will be the remaining amount per iteration)
+  for (let index = 0; index <= nums.length; index++) {
+    remainingValue = remainingValue - index;
+  }
+
+
   //return our return variable, the left over which will equal our missing value
+  return Math.abs(remainingValue);
+};
 
 
 
 
+
+missingNumber([9,6,4,2,3,5,7,0,1]);
+missingNumber([0]);
+missingNumber([3,0,1]);
