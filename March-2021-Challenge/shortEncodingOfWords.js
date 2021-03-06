@@ -26,33 +26,23 @@ This will also make adding to the indices array much easier
 */
 
 var minimumLengthEncoding = function(words) {
-  //Declare the reference string with the first word + a #, and indices array with 0.
-  let referenceString = words[0] + '#';
-  const indicesArray = [0];
+  //Refactor to solve all cases:
+  //Instead of a single reference string, create an array to house all reference string possibilities
 
-  //starting with the second word in the input array, iterate over the input
-  for (let i = 1; i < words.length; i++) {
-    //perform a search using indexOf for the current word in the reference string
-  let startingIndex = referenceString.indexOf(words[i])
-    //if the indexOf method returns -1 it is not present
-    if (startingIndex === -1) {
-      //In this case, grab the length of the reference string and add it to the indices array
-      //then add the current word to the reference string with a #
-      indicesArray.push(referenceString.length);
-      referenceString = referenceString + words[i] + '#';
-    } else {
-      //if the indexOf method does return a number
-          //we need only to add the index to the indices array and continue our interation
-      indicesArray.push(startingIndex)
-    }
+  //Iterate over the input array
+    //Start a reference string with the current word, adding a # at the end
+    //Iterate over the input array again
 
-  }
+    //If the current word in the iteration is the word the reference string started with skip over and continue to the next word
+    //Test whether the current word is part of the reference string using indexOf
 
+    //if the method returns -1
+      //grab the length of the reference string and add it to the indices array for the current reference string
+      //then add the word to the reference string with a # at the end
 
-  //When the iteration of the input array is over we can determine the length of the reference string and return it
-  return referenceString.length;
+    //otherwise grab the the return of the indexOf method and add it to the current reference string's indices array
 
-
+  //iterate over the reference strings array and determine the shortest element and return it's length
 };
 
 //Test cases
