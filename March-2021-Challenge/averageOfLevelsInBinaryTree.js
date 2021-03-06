@@ -75,23 +75,53 @@ var averageOfLevels = function (root) {
 
   //now that the tracking object is housing the data we need we will iterate through it
   //calculate the average of the given key's values and push them to the return array
-  for (let key in trackingObj) {
-    let currentArray = trackingObj[key];
+  // for (let key in trackingObj) {
+  //   let currentArray = trackingObj[key];
 
-    //catch the first level and push it to the averages array
-    if (currentArray.length === 1) {
-      averagesArray.push(currentArray[0])
-      //otherwise find the average of the level
-    } else {
-      //iterate through the given levels values and sum them up and divide by the number of items in the given
-      //array (AKA get the average)
-      let averageOfLevel = currentArray.reduce((a, b) => { return a + b }) / currentArray.length
-      averagesArray.push(averageOfLevel);
-    }
+  //   //catch the first level and push it to the averages array
+  //   if (currentArray.length === 1) {
+  //     averagesArray.push(currentArray[0])
+  //     //otherwise find the average of the level
+  //   } else {
+  //     //iterate through the given levels values and sum them up and divide by the number of items in the given
+  //     //array (AKA get the average)
+  //     let averageOfLevel = currentArray.reduce((a, b) => { return a + b }) / currentArray.length
+  //     averagesArray.push(averageOfLevel);
+  //   }
 
-  }
+  // }
+
+  //Refactor of averaging the levels
+  Object.values(trackingObj).map((array) => {averagesArray.push(array.reduce((a,b) => {return a+b;})/array.length)})
+
 
   //return the averagesArray
   return averagesArray;
 
 };
+
+//Test cases
+let testTree = {
+  val: 3,
+  left: {
+    val: 9,
+    left: null,
+    right: null
+  },
+  right: {
+    val: 20,
+    left: {
+      val: 15,
+      left: null,
+      right: null,
+    },
+    right: {
+      val: 7,
+      left: null,
+      right:null,
+    }
+  }
+}
+
+//Test
+console.log(averageOfLevels(testTree));
