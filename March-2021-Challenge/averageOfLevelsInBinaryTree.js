@@ -64,7 +64,7 @@ var averageOfLevels = function (root) {
 
 
     //break case for recursive function
-    //if child values are null then just add this levels value to the tracking object
+    //if child values are null then just return
     if (tree.left === null && tree.right === null) {
       return;
     }
