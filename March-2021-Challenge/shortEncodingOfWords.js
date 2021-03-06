@@ -27,18 +27,36 @@ This will also make adding to the indices array much easier
 
 var minimumLengthEncoding = function(words) {
   //Declare the reference string with the first word + a #, and indices array with 0.
+  let referenceString = words[0] + '#';
+  const indicesArray = [0];
 
   //starting with the second word in the input array, iterate over the input
-      //perform a search using indexOf for the current word in the reference string
-      //if the indexOf method returns -1 it is not present
-          //In this case, grab the length of the reference string and add it to the indices array
-          //then add the current word to the reference string with a #
+  for (let i = 1; i < words.length; i++) {
+    //perform a search using indexOf for the current word in the reference string
+  let startingIndex = referenceString.indexOf(words[i])
+    //if the indexOf method returns -1 it is not present
+    if (startingIndex === -1) {
+      //In this case, grab the length of the reference string and add it to the indices array
+      //then add the current word to the reference string with a #
+      indicesArray.push(referenceString.length);
+      referenceString = referenceString + words[i] + '#';
+    } else {
       //if the indexOf method does return a number
           //we need only to add the index to the indices array and continue our interation
+      indicesArray.push(startingIndex)
+    }
 
-  //When the iteration of the input array is over we can determine the length of the reference string
+  }
 
-  //return the reference string's .length
+
+  //When the iteration of the input array is over we can determine the length of the reference string and return it
+  return referenceString.length;
 
 
 };
+
+//Test cases
+
+let testWords = ["time", "me", "bell"];
+
+console.log(minimumLengthEncoding(testWords))
