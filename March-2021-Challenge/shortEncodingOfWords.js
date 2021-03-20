@@ -1,8 +1,12 @@
 /**
  * @param {string[]} words
  * @return {number}
+ *
+ Constraints:
+ 1 <= words.length <= 2000
+ 1 <= words[i].length <= 7
+ words[i] consists of only lowercase letters.
  */
-
 /*
 Thoughts:
 
@@ -28,25 +32,71 @@ This will also make adding to the indices array much easier
 var minimumLengthEncoding = function(words) {
   //Refactor to solve all cases:
   //Instead of a single reference string, create an array to house all reference string possibilities
+  const referenceStrings = [];
+  const indicesArrays = [];
+  let shortestStringCount = Infinity;
+  let shortestIndex;
+
 
   //Iterate over the input array
+  for (let i = 0; i < words.length; i++) {
+
     //Start a reference string with the current word, adding a # at the end
+    let referenceString = words[i] + '#';
+    const indices = [0];
+
     //Iterate over the input array again
+    for (let j = 0; j < words.length; j++) {
+      //If the current word in the iteration is the word the reference string started with skip over and continue to the next word
+      if (words[i] === words[j]) {
+        continue;
+      }
 
-    //If the current word in the iteration is the word the reference string started with skip over and continue to the next word
-    //Test whether the current word is part of the reference string using indexOf
+      //Test whether the current word is part of the reference string using indexOf
+      let indexOfCurrentWord = referenceString.indexOf(words[j]);
+      //if the method returns -1
+      if (indexOfCurrentWord === -1) {
+        //grab the length of the reference string and add it to the indices array for the current reference string
+        indices.push(referenceString.length)
 
-    //if the method returns -1
-      //grab the length of the reference string and add it to the indices array for the current reference string
-      //then add the word to the reference string with a # at the end
+        //then add the word to the reference string with a # at the end
+        referenceString = referenceString + words[j] + '#';
+      } else {
+        //otherwise grab the the return of the indexOf method and add it to the current reference string's indices array
+        indices.push(indexOfCurrentWord)
+      }
 
-    //otherwise grab the the return of the indexOf method and add it to the current reference string's indices array
+    }
+    //push the reference string to the reference strings array
+    referenceStrings.push(referenceString);
+    indicesArrays.push(indices);
+  }
 
   //iterate over the reference strings array and determine the shortest element and return it's length
+  let wordMatch = [];
+
+  for (let k = 0; k < referenceStrings.length; k++) {
+    if (referenceStrings[k].indexOf(words[k]+'#') !== -1) {
+      wordMatch.push(1);
+    }
+    let isTrue = (element) => {return element > 0};
+
+    if (wordMatch.every(isTrue) && wordMatch.length === words.length) {
+        if (referenceStrings[k].length < shortestStringCount) {
+          shortestStringCount = referenceStrings[k].length
+          shortestIndex = k
+        }
+      }
+    }
+
+
+
+
+  return shortestStringCount;
 };
 
 //Test cases
 
 let testWords = ["time", "me", "bell"];
-
-console.log(minimumLengthEncoding(testWords))
+let test2 = ["feipyxx", "e"]
+console.log(minimumLengthEncoding(test2))
